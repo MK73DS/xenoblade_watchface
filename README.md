@@ -2,6 +2,8 @@
 
 A Pebble watchface for the Pebble Time 2 only, featuring a beautiful theme from the video game Xenoblade Chronicles!
 
+![watchface animated gif during daytime](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/charging.gif?raw=true) ![watchface at night](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/night.png?raw=true)
+
 ## Features
 
 - Time and date (obviously, it's a watch!). Updates every minute and seconds aren't displayed.
