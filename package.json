@@ -1,0 +1,119 @@
+{
+  "name": "Xenoblade Chronicles",
+  "author": "MK73DS",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "Xenoblade",
+    "uuid": "63afca43-ca16-46bb-84d4-111c499de7e4",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "dummy"
+    ],
+    "projectType": "native",
+    "resources": {
+      "media": [
+	{
+	  "type": "bitmap",
+	  "name": "MENU_ICON",
+	  "file": "icon.png",
+	  "spaceOptimization": "storage",
+	  "menuIcon": true
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_0",
+	  "file": "numbers/0.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_1",
+	  "file": "numbers/1.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_2",
+	  "file": "numbers/2.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_3",
+	  "file": "numbers/3.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_4",
+	  "file": "numbers/4.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_5",
+	  "file": "numbers/5.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_6",
+	  "file": "numbers/6.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_7",
+	  "file": "numbers/7.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_8",
+	  "file": "numbers/8.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "DIGIT_9",
+	  "file": "numbers/9.png",
+	  "spaceOptimization": "memory"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "BACKGROUND_CLOUDS",
+	  "file": "backgrounds/clouds.png",
+	  "memoryFormat": "8Bit"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "BACKGROUND_GROUND",
+	  "file": "backgrounds/ground.png",
+	  "memoryFormat": "8Bit"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "BACKGROUND_ARTS",
+	  "file": "backgrounds/arts.png",
+	  "memoryFormat": "8Bit"
+	},
+	{
+	  "type": "bitmap",
+	  "name": "BACKGROUND_HEADER",
+	  "file": "backgrounds/header.png",
+	  "memoryFormat": "8Bit"
+	}
+      ]
+    }
+  }
+}
