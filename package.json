@@ -1,7 +1,7 @@
 {
   "name": "Xenoblade Chronicles",
   "author": "MK73DS",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "keywords": ["pebble-app"],
   "private": true,
   "dependencies": {},
@@ -33,61 +33,61 @@
 	  "type": "bitmap",
 	  "name": "DIGIT_0",
 	  "file": "numbers/0.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_1",
 	  "file": "numbers/1.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_2",
 	  "file": "numbers/2.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_3",
 	  "file": "numbers/3.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_4",
 	  "file": "numbers/4.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_5",
 	  "file": "numbers/5.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_6",
 	  "file": "numbers/6.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_7",
 	  "file": "numbers/7.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_8",
 	  "file": "numbers/8.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",
 	  "name": "DIGIT_9",
 	  "file": "numbers/9.png",
-	  "spaceOptimization": "memory"
+	  "memoryFormat": "8Bit"
 	},
 	{
 	  "type": "bitmap",

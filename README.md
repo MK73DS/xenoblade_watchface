@@ -2,7 +2,7 @@
 
 A Pebble watchface for the Pebble Time 2 only, featuring a beautiful theme from the video game Xenoblade Chronicles!
 
-![watchface animated gif during daytime](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/charging.gif?raw=true) ![watchface at night](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/night.png?raw=true)
+![watchface animated gif during daytime](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/charging.gif?raw=true) ![watchface at night](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/night.png?raw=true) ![watchface adapting layout when Timeline preview is active](https://github.com/MK73DS/xenoblade_watchface/blob/main/screenshots/timeline.gif?raw=true)
 
 ## Features
 
@@ -17,7 +17,11 @@ A Pebble watchface for the Pebble Time 2 only, featuring a beautiful theme from 
 
 - Battery charge under the Monado art.
 
-- Beautiful theme, inspired by the title screen of the game. The clouds move to the left every minute (or second when charging), making the watch not exactly the same every time you look at it! Also, the sky darkens during the night, just like in the video game.
+- Beautiful theme, inspired by the title screen of the game.
+  - The clouds move to the left every minute (or second when charging), making the watch not exactly the same every time you look at it! (see images above)
+  - The sky darkens during the night, just like in the video game! (see images above)
+
+- The UI shifts accodringly when the Timeline preview appears on screen, nothing get hidden underneath! (see gif above)
 
 - Performance and efficiency in mind: I want to use this watchface daily, so extra effort has been put in order for the watchface to be as efficient as possible, even for the text contouring and background scrolling features.
 
