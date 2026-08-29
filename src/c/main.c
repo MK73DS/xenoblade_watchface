@@ -94,18 +94,21 @@ static inline void health_layer_set_text_color(Layer * layer, const GColor color
 /*** Calendar ***/
 // Header bitmap
 static GBitmap *s_header_bitmap;
-static const GRect s_header_bitmap_draw_grect = GRect(10, 0, 180, 15);
+static const GRect s_header_bitmap_draw_grect = GRect(10, 0, 180, 17);
 // Our own text layer
 static Layer *s_calendar_text_layer;
-static const GRect s_calendar_text_layer_grect = GRect(0, 1, 200, 15);
-static const GRect s_calendar_text_grect = GRect(60, -2, 80, 14);
-static const GRect s_calendar_text_contour_grect = GRect(60, 1, 80, 14);
+static const GRect s_calendar_text_layer_grect = GRect(0, 1, 200, 17);
+static const GRect s_calendar_text_grect = GRect(30, -4, 140, 15);
+static const GRect s_calendar_text_contour_grect = GRect(30, 2, 140, 16);
 // Text buffer
-static char s_calendar_text[11]; // XX/YY/ZZZZ + null terminated
-
+// Format : "Sat 13 Sep 2026" + null terminated
+// In some languages (like French), abbreviated names can take 4 characters
+// That's why the buffer is of size 4+1+2+1+4+1+4+1 = 18
+static char s_calendar_text[18]; // 
 
 /*** Fonts ***/
 GFont s_health_font;
+GFont s_ui_font;
 GFont s_calendar_font;
 
 
@@ -347,7 +350,7 @@ static void draw_time(struct Layer * layer, GContext * ctx) {
 // Only update date when it's 00:00 or if we force it
 static void update_calendar_text(const struct tm * tick_time, const bool force) {
   if (force || (tick_time->tm_min == 0 && tick_time->tm_hour == 0))
-    strftime(s_calendar_text, sizeof(s_calendar_text), "%d/%m/%Y", tick_time);
+    strftime(s_calendar_text, sizeof(s_calendar_text), "%a %d %h %Y", tick_time);
 }
 
 // Draw the date and the header's background
@@ -592,9 +595,9 @@ static void background_draw_one_shot(struct Layer *layer, GContext *ctx) {
   bpm_rect.size.h = 16;
 
   // Draw the texts
-  graphics_draw_text(ctx, steps_text, s_calendar_font, steps_rect, GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // steps
-  graphics_draw_text(ctx, kcal_text,  s_calendar_font, kcal_rect,  GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // kcal
-  graphics_draw_text(ctx, bpm_text,   s_calendar_font, bpm_rect,   GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // bpm
+  graphics_draw_text(ctx, steps_text, s_ui_font, steps_rect, GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // steps
+  graphics_draw_text(ctx, kcal_text,  s_ui_font, kcal_rect,  GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // kcal
+  graphics_draw_text(ctx, bpm_text,   s_ui_font, bpm_rect,   GTextOverflowModeWordWrap, GTextAlignmentCenter, NULL); // bpm
 
   // Get the framebuffer
   GBitmap * fb = graphics_capture_frame_buffer(ctx);
@@ -742,7 +745,7 @@ static void main_window_load(Window *window) {
    ***** CALENDAR (header)  *****
    ******************************/
 
-  s_header_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BACKGROUND_HEADER); // 180x15
+  s_header_bitmap = gbitmap_create_with_resource(RESOURCE_ID_BACKGROUND_HEADER); // 180x17
   s_calendar_text_layer = layer_create(s_calendar_text_layer_grect);
   layer_set_update_proc(s_calendar_text_layer, proc_draw_calendar);
   layer_add_child(window_layer, s_calendar_text_layer);
@@ -831,13 +834,15 @@ static void main_window_unload(Window *window) {
 static void init() {
   // Get the watch's locale
   memcpy(s_locale, i18n_get_system_locale(), 6);
+  setlocale(LC_ALL, s_locale);
 
   // Create the main window
   s_main_window = window_create();
 
   // Set the fonts
   s_health_font = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
-  s_calendar_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+  s_ui_font = fonts_get_system_font(FONT_KEY_GOTHIC_14_BOLD);
+  s_calendar_font = fonts_get_system_font(FONT_KEY_GOTHIC_18_BOLD);
 
   // Setting the handlers
   window_set_window_handlers(s_main_window, (WindowHandlers) {

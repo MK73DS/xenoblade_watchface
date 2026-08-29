@@ -26,7 +26,7 @@ A Pebble watchface for the Pebble Time 2 only, featuring a beautiful theme from 
 - Performance and efficiency in mind: I want to use this watchface daily, so extra effort has been put in order for the watchface to be as efficient as possible, even for the text contouring and background scrolling features.
 
 - The UI is automatically translated depending on your language setting! Supports English, French, Spanish, Portuguese, Italian and German!
-  - The date will always be of the form DD/MM/YYYY.
+  - The date will always be of the form `Sun 13 Sep 2026`, if this bothers you, please tell me and I will make it locale dependent (but for now I don't want to bother with that). The abbreviated names for the days and months are translated to your language.
   - _Note: I only speak French and English, if the translations for the other languages are not right, please tell me!_
 
 _Note: I am not a developer, and I learned a lot of C during this project. I extensively searched and asked about my code but I cannot guarantee it is well written. If you want to suggest modifications, please do not hesitate to open a PR!_
