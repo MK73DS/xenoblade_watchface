@@ -350,8 +350,13 @@ static void draw_time(struct Layer * layer, GContext * ctx) {
 
 // Only update date when it's 00:00 or if we force it
 static void update_calendar_text(const struct tm * tick_time, const bool force) {
-  if (force || (tick_time->tm_min == 0 && tick_time->tm_hour == 0))
-    strftime(s_calendar_text, sizeof(s_calendar_text), "%a %d %h %Y", tick_time);
+  if (force || (tick_time->tm_min == 0 && tick_time->tm_hour == 0)) {
+    //strftime(s_calendar_text, sizeof(s_calendar_text), "%a %e %h %Y", tick_time);
+    char* text_ptr = s_calendar_text;
+    text_ptr += strftime(text_ptr, 7, "%a ", tick_time);		// Day name
+    text_ptr += snprintf(text_ptr, 4, "%d ", tick_time->tm_mday);	// Day number
+    text_ptr += strftime(text_ptr, 11, "%h %Y", tick_time);		// Month + year
+  }
 }
 
 // Draw the date and the header's background
