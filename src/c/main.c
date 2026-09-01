@@ -102,9 +102,10 @@ static const GRect s_calendar_text_grect = GRect(30, -4, 140, 15);
 static const GRect s_calendar_text_contour_grect = GRect(30, 2, 140, 16);
 // Text buffer
 // Format : "Sat 13 Sep 2026" + null terminated
-// In some languages (like French), abbreviated names can take 4 characters
-// That's why the buffer is of size 4+1+2+1+4+1+4+1 = 18
-static char s_calendar_text[18]; // 
+// In some languages (like French), abbreviated names can take 5 characters (4 letters abbreviation + a dot)
+// Althought, this seems to only be the case for months names, but just in case we also say a day name can be up to 5 characters.
+// That's why the buffer is of size 5+1+2+1+5+1+4+1 = 20
+static char s_calendar_text[20]; // 
 
 /*** Fonts ***/
 GFont s_health_font;
