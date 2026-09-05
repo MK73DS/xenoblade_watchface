@@ -78,7 +78,7 @@ static inline GRect s_art_grects(const int i) {
 }
 
 // Texts
-static char s_art_texts[6][AL_COUNT];
+static char s_art_texts[AL_COUNT][6];
 
 // Data structure for our own text layers
 struct HealthLayerData {
@@ -188,7 +188,7 @@ static inline void copy_with_transparency(void * restrict dest, const void *rest
   char *d = dest;
   const char *s = src;
   while (size--) {
-    if (*s & 0b11000000) *d = *s;
+    if (*s & 0xC0) *d = *s;
     s++; d++;
   }
 }
@@ -196,30 +196,22 @@ static inline void copy_with_transparency(void * restrict dest, const void *rest
 // Contour drawing around text (or other parts of the framebuffer)
 // It should be pretty efficient :)
 
-// Useful helper, it copies in black pixels of color 'color' from src and add a black pixel on the left and right of each one
+// Useful helper, it adds a black pixel on the left and right of each 'color' pixel
 static void expand_row(uint8_t * restrict row, const uint8_t * restrict src, const uint8_t color, const int w) {
-  if (w <= 0) // Should not happen, but just to be sure
-    return;
-
   for (int j=1; j<w-1; j++) {
     if (src[j] != color)
       continue;
     
     row[j-1] = GColorBlackARGB8;
-    row[j]   = GColorBlackARGB8;
     row[j+1] = GColorBlackARGB8;
   }
-  // Handle edge cases outside the loop for less branching
+  // Handle edge cases outside the loop for less if statements
   // j = 0
-  if (src[0] == color) {
-    row[0] = GColorBlackARGB8;
-    if (w > 1) row[1] = GColorBlackARGB8;
-  }
+  if (src[0] == color)
+    row[1] = GColorBlackARGB8;
   // j = w-1
-  if (src[w-1] == color) {
-    row[w-1] = GColorBlackARGB8;
-    if (w > 1) row[w-2] = GColorBlackARGB8;
-  }
+  if (src[w-1] == color)
+    row[w-2] = GColorBlackARGB8;
 }
 
 // draws a black contour around all pixels chunks of color 'color' inside the framebuffer fb
@@ -243,9 +235,13 @@ static void contour_text(GRect rect, uint8_t * restrict fb, const uint8_t color)
     h = FB_HEIGHT - y;
   }
  
+  // The compiler produces slightly faster code (~10% faster) if it knows the width and height aren't too small
+  // We will never run this function on such a small rect so it's fine
+  if (w <= 2 || h <= 2)
+    return;
 
   // We need three scanlines
-  // In fact, they could be of length w, but that would require the use of malloc which is slower (that what I was told, I don't know)
+  // In fact, they could be of length w, but that would require the use of malloc or variable length arrays which are slower
   // Each scanline will contain an elongated black border
   // They come from non bg_color pixels in the framebuffer
   uint8_t line0[FB_WIDTH];
@@ -256,6 +252,7 @@ static void contour_text(GRect rect, uint8_t * restrict fb, const uint8_t color)
   uint8_t * restrict top_line = line0;
   uint8_t * restrict mid_line = line1;
   uint8_t * restrict bot_line = line2;
+  uint8_t * restrict tmp_line = top_line; // We also need a temp one for permuting them
 
   // Initialize them with zeros
   memset(top_line, 0, w);
@@ -265,13 +262,12 @@ static void contour_text(GRect rect, uint8_t * restrict fb, const uint8_t color)
   // Pointer to the first useful byte, so that fb_offset[0] is the top left byte in the rectangle
   uint8_t * restrict fb_offset_row = fb + FB_WIDTH*y + x;
 
-
   // Looping over all lines
   for (int i=0; i<h; i++) {
     // We can reuse the two last lines shadows if i>0
     if (i != 0) { // We only need to get the bottom line
       // Rotate lines
-      uint8_t * tmp_line = top_line;
+      tmp_line = top_line;
       top_line = mid_line; // top <- mid
       mid_line = bot_line; // mid <- bot
       bot_line = tmp_line; // bot <- top (tmp)
@@ -283,8 +279,7 @@ static void contour_text(GRect rect, uint8_t * restrict fb, const uint8_t color)
     }
     // Bottom line
     if (i != h-1) {
-      uint8_t * restrict fb_offset_next_row = fb_offset_row + FB_WIDTH;
-      expand_row(bot_line, fb_offset_next_row, color, w);
+      expand_row(bot_line, fb_offset_row + FB_WIDTH, color, w);
     }
 
     // We write the first w bytes of three_lines that are black into the framebuffer
