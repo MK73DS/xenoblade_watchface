@@ -300,8 +300,20 @@ static void contour_text(GRect rect, uint8_t * restrict fb, const uint8_t color)
 
 // Function that updates the digits of the time
 static void update_time_digits(const struct tm * tick_time) {
-  s_time_bitmaps[0] = s_digits_bitmap[tick_time->tm_hour/10];
-  s_time_bitmaps[1] = s_digits_bitmap[tick_time->tm_hour%10];
+  //Get hour basd on 12h or 24h time (based on system default)
+  int normalized_hour = tick_time->tm_hour;
+  if (!clock_is_24h_style()) {
+    if (normalized_hour == 0 || normalized_hour == 12) {
+      normalized_hour = 12;
+    }
+    else {
+      normalized_hour %= 12; 
+    }
+  }
+
+  //Get appropriate bitmaps for time
+  s_time_bitmaps[0] = s_digits_bitmap[normalized_hour/10];
+  s_time_bitmaps[1] = s_digits_bitmap[normalized_hour%10];
   s_time_bitmaps[2] = s_digits_bitmap[tick_time->tm_min/10];
   s_time_bitmaps[3] = s_digits_bitmap[tick_time->tm_min%10];
 
